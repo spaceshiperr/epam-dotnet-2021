@@ -4,15 +4,10 @@ namespace ArrayHelper
 {
     public class PositivesSummator
     {
-        public decimal[,] Array { get; set; }
+        public decimal[][] Array { get; set; }
 
-        public PositivesSummator(decimal[,] array)
+        public PositivesSummator(decimal[][] array)
         {
-            if (array is null)
-            {
-                throw new ArgumentNullException();
-            }
-
             Array = array;
         }
 
@@ -20,13 +15,10 @@ namespace ArrayHelper
         {
             decimal sum = 0;
 
-            foreach (var element in Array)
-            {
-                if (element > 0)
-                {
-                    sum += element;
-                }
-            }
+            foreach (var array in Array)
+                foreach (var element in array)
+                    if (element > 0)
+                        sum += element;
 
             return sum;
         }

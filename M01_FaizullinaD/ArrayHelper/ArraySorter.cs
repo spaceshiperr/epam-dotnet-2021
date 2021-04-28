@@ -8,11 +8,6 @@ namespace ArrayHelper
 
         public ArraySorter(decimal[] array)
         {
-            if (array is null)
-            {
-                throw new ArgumentNullException();
-            }
-
             Array = array;
         }
 

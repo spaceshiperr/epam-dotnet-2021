@@ -10,25 +10,12 @@ namespace RectangleHelper
 
         public RectangleCalculator(decimal width, decimal length)
         {
-            if (width <= 0 | length <= 0)
-            {
-                throw new ArgumentException("Width and length must be positive numbers");
-            }
-
             Width = width;
             Length = length;
         }
 
-        public decimal GetPerimeter()
-        {
-            var perimeter = 2 * (Width + Length);
-            return perimeter;
-        }
+        public decimal GetPerimeter() => 2 * (Width + Length);
 
-        public decimal GetSquare()
-        {
-            var square = Width * Length;
-            return square;
-        }
+        public decimal GetSquare() => Width * Length;
     }
 }

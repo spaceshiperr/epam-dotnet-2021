@@ -35,7 +35,7 @@
   <ItemGroup>
     <Reference Include="MultifileAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c6a638be5b5c4a6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\MultifileAssembly.dll</HintPath>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\MultifileAssembly\v4.0_0.0.0.0__c6a638be5b5c4a6c\MultifileAssembly.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
