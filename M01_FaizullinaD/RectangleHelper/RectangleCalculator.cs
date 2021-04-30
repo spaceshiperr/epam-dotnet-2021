@@ -10,6 +10,11 @@ namespace RectangleHelper
 
         public RectangleCalculator(decimal width, decimal length)
         {
+            if (width <= 0 | length <= 0)
+            {
+                throw new ArgumentException();
+            }
+           
             Width = width;
             Length = length;
         }
