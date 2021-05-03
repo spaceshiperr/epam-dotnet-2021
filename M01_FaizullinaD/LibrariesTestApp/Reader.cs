@@ -15,7 +15,7 @@ namespace LibrariesTestApp
         {
             var input = Console.ReadLine();
 
-            if (input.Equals(string.Empty))
+            if (string.IsNullOrEmpty(input))
                 throw new ArgumentException("The input is empty, try again!");
 
             return input;
@@ -29,7 +29,7 @@ namespace LibrariesTestApp
         {
             var input = Console.ReadLine();
 
-            if (input.Equals(string.Empty))
+            if (string.IsNullOrEmpty(input))
                 throw new ArgumentException("The input is empty, try again!");
 
             string[] inputArray = input.Split(' ');
@@ -52,7 +52,7 @@ namespace LibrariesTestApp
             {
                 var input = Console.ReadLine();
 
-                if (input.Equals(string.Empty))
+                if (string.IsNullOrEmpty(input))
                     throw new ArgumentException("The input is empty, try again!");
 
                 inputArray[i] = input;

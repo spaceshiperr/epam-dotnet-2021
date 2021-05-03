@@ -15,7 +15,7 @@ namespace LibrariesTestApp
             string command;
             do
             {
-                Printer.PrintCommands();
+                PrintCommands();
                 command = Console.ReadLine();
                 switch (command)
                 {
@@ -43,7 +43,7 @@ namespace LibrariesTestApp
             {
                 try
                 {
-                    Printer.Print("Enter the array - numbers separated by spaces:");
+                    Console.WriteLine("Enter the array - numbers separated by spaces:");
 
                     var inputArray = Reader.GetInputArray();
                     decimal[] array = Converter.ToNumberArray(inputArray);
@@ -51,17 +51,17 @@ namespace LibrariesTestApp
                     var sorter = new ArraySorter(array);
 
                     sorter.BubbleSortAsc();
-                    Printer.Print("The array sorted in ascending order:");
-                    Printer.PrintArray(array);
+                    Console.WriteLine("The array sorted in ascending order:");
+                    Console.WriteLine(string.Join(" ", array));
 
                     sorter.BubbleSortDesc();
-                    Printer.Print("The array sorted in descending order:");
-                    Printer.PrintArray(array);
+                    Console.WriteLine("The array sorted in descending order:");
+                    Console.WriteLine(string.Join(" ", array));
                     break;
                 }
                 catch (Exception e)
                 {
-                    Printer.Print(e.Message);
+                    Console.WriteLine(e.Message);
                     continue;
                 }
             } while (true);
@@ -73,22 +73,22 @@ namespace LibrariesTestApp
             {
                 try
                 {
-                    Printer.Print("Enter the number of rows in a two-dimensional array:");
+                    Console.WriteLine("Enter the number of rows in a two-dimensional array:");
                     var rowsInput = Reader.GetInput();
                     var rows = Convert.ToInt32(Converter.ToNumber(rowsInput));
 
-                    Printer.Print("Enter members of the a two-dimensional array - rows of numbers separated by spaces:");
+                    Console.WriteLine("Enter members of the a two-dimensional array - rows of numbers separated by spaces:");
                     string[] inputArray = Reader.GetInputArray(rows);
                     decimal[,] array = Converter.To2DNumberArray(inputArray);
 
                     var summator = new PositivesSummator(array);
                     var sum = summator.SumPositives();
-                    Printer.Print("The sum of all positive numbers of the array: " + sum);
+                    Console.WriteLine("The sum of all positive numbers of the array: " + sum);
                     break;
                 }
                 catch (Exception e)
                 {
-                    Printer.Print(e.Message);
+                    Console.WriteLine(e.Message);
                     continue;
                 }
             } while (true);
@@ -100,7 +100,7 @@ namespace LibrariesTestApp
             {
                 try
                 {
-                    Printer.Print("Enter width and length of a rectangle - two numbers separated by spaces:");
+                    Console.WriteLine("Enter width and length of a rectangle - two numbers separated by spaces:");
                     var inputSizes = Reader.GetInputArray();
                     var sizes = Converter.ToNumberArray(inputSizes);
 
@@ -114,15 +114,24 @@ namespace LibrariesTestApp
                     var perimeter = calculator.GetPerimeter();
                     var square = calculator.GetSquare();
 
-                    Printer.Print("The perimeter is " + perimeter + " and the square is " + square);
+                    Console.WriteLine("The perimeter is " + perimeter + " and the square is " + square);
                     break;
                 }
                 catch (Exception e)
                 {
-                    Printer.Print(e.Message);
+                    Console.WriteLine(e.Message);
                     continue;
                 }
             } while (true);
+        }
+
+        private static void PrintCommands()
+        {
+            Console.WriteLine("Choose a command:" + Environment.NewLine +
+                              "1 - bubble sort an array," + Environment.NewLine +
+                              "2 - sum all positive numbers of a two dimensional array," + Environment.NewLine +
+                              "3 - calculate perimeter or square of a rectangle," + Environment.NewLine +
+                              "0 - exit an application");
         }
     }
 }
