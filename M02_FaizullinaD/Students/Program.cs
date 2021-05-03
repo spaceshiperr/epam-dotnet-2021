@@ -15,7 +15,16 @@ namespace Students
         {
             var hashSet = new HashSet<string>();
             for (int i = 0; i < count; i++)
-                hashSet.Add(GetRandomElement(random, array));
+            {
+                string element;
+                do
+                {
+                    element = GetRandomElement(random, array);
+                }
+                while (hashSet.Contains(element));
+                
+                hashSet.Add(element);
+            }
 
             return hashSet;
         }

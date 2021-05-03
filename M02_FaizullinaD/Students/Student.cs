@@ -23,12 +23,11 @@ namespace Students
             }
             
             FullName = name + ' ' + surname;
-            Email = GetEmailByFullName(FullName);
+            Email = GetEmailByFullName(name, surname);
         }
         
         private string GetFullNameByEmail(string email)
         {
-            // redo using regex?
             string name = email.Split('.')[0];
             string surname = email.Split('.')[1].Split('@')[0];
 
@@ -40,10 +39,9 @@ namespace Students
             return fullName;
         }
 
-        private string GetEmailByFullName(string fullName)
+        private string GetEmailByFullName(string name, string surname)
         {
-            string[] names = fullName.Split(' ');
-            string email = (names[0] + '.' + names[1] + "@epam.com").ToLower();
+            string email = (name + '.' + surname + "@epam.com").ToLower();
 
             return email;
         }
