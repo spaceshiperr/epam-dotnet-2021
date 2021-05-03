@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading;
 
 namespace Perfomance
 {
@@ -16,14 +15,6 @@ namespace Perfomance
         public struct S
         {
             public int i;
-        }
-
-        private static string GetElapsedTime(Stopwatch stopWatch)
-        {
-            var ts = stopWatch.Elapsed;
-            string elapsedTime = string.Format("{0:00}h:{1:00}m:{2:00}s.{3:00}ms",
-                                                ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-            return elapsedTime;
         }
 
         private static long GetDifference(long x, long y)
@@ -73,12 +64,12 @@ namespace Perfomance
             stopWatch.Start();
             Array.Sort<C>(classArray, (x, y) => x.i.CompareTo(y.i));
             stopWatch.Stop();
-            Console.WriteLine("Execution of Array.Sort for an array of classes: " + GetElapsedTime(stopWatch));
+            Console.WriteLine("Execution of Array.Sort for an array of classes: " + stopWatch.Elapsed);
 
             stopWatch.Restart();
             Array.Sort<S>(structArray, (x, y) => x.i.CompareTo(y.i));
             stopWatch.Stop();
-            Console.WriteLine("Execution of Array.Sort for an array of structs: " + GetElapsedTime(stopWatch));
+            Console.WriteLine("Execution of Array.Sort for an array of structs: " + stopWatch.Elapsed);
 
             Console.ReadLine();
         }
