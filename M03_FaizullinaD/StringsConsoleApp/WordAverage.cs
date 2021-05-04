@@ -2,9 +2,9 @@
 
 namespace StringsConsoleApp
 {
-    public class WordAverage
+    public static class WordAverage
     {
-        public double GetAverageWordLength(string input)
+        public static double GetAverageWordLength(string input)
         {
             char[] delimiterChars = { ' ', ',', '.', ':', '\t', ';', '\'', '"', '?', '!', '(', ')', '-' };
             string[] words = input.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);

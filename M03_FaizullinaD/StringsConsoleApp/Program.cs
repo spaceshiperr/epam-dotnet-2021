@@ -10,15 +10,18 @@ namespace StringsConsoleApp
     {
         static void Main(string[] args)
         {
-            var input = Console.ReadLine();
-
-            //var wordAverage = new WordAverage();
-            //double average = wordAverage.GetAverageWordLength(input);
+            //var input = Console.ReadLine();
+            //double average = WordAverage.GetAverageWordLength(input);
             //Console.WriteLine(average);
 
-            var sentenceReverser = new SentenceReverser();
-            string reversed = sentenceReverser.ReverseSentence(input);
-            Console.WriteLine(reversed);
+            //var input = Console.ReadLine();
+            //string reversed = SentenceReverser.ReverseSentence(input);
+            //Console.WriteLine(reversed);
+
+            var text = "omg i love shrek";
+            var charsToDouble = "o kek";
+            var doubled = MatchDoubler.DoubleMatchedChars(text, charsToDouble);
+            Console.WriteLine(doubled);
 
             Console.ReadLine();
         }

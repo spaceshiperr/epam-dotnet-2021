@@ -1,8 +1,8 @@
 ﻿namespace StringsConsoleApp
 {
-    public class SentenceReverser
+    public static class SentenceReverser
     {
-        public string ReverseSentence(string input)
+        public static string ReverseSentence(string input)
         {
             string[] words = input.Split(' ');
             string reversed = string.Empty;
