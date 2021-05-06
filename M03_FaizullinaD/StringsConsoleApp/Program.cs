@@ -21,8 +21,8 @@ namespace StringsConsoleApp
             //var doubled = MatchDoubler.DoubleMatchedChars(text, charsToDouble);
             //Console.WriteLine(doubled);
 
-            //var n1 = "214872";
-            //var n2 = "1231";
+            //var n1 = "20072";
+            //var n2 = "-779";
             //var sum = BigNumberSummator.Sum(n1, n2);
             //Console.WriteLine(sum);
 
