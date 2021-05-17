@@ -9,6 +9,9 @@ namespace StringsConsoleApp
     {
         public static string DoubleMatchedChars(string text, string charsToDouble)
         {
+            if (string.IsNullOrWhiteSpace(text) || string.IsNullOrWhiteSpace(charsToDouble))
+                throw new ArgumentNullException();
+
             while (charsToDouble.IndexOf(' ') > 0)
                 charsToDouble = charsToDouble.Remove(charsToDouble.IndexOf(' '), 1);
 

@@ -27,6 +27,8 @@ namespace StringsConsoleApp
             //Console.WriteLine(sum);
 
             //var input = Console.ReadLine();
+            //var input = "is it crazy how saying sentences backwards " +
+            //            "creates backwards sentences saying how crazy it is";
             //string reversed = SentenceReverser.ReverseSentence(input);
             //Console.WriteLine(reversed);
 
