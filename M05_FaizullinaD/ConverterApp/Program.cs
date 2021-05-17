@@ -11,7 +11,7 @@ namespace ConverterApp
         static void Main(string[] args)
         {
             var services = new ServiceCollection();
-            services.AddLogging((builder) => builder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace));
+            services.AddLogging((builder) => builder.SetMinimumLevel(LogLevel.Trace));
             var provider = services.BuildServiceProvider();
 
             var factory = provider.GetService<ILoggerFactory>();
@@ -32,6 +32,8 @@ namespace ConverterApp
             {
                 Console.WriteLine(ex.Message);
             }
+            Console.ReadLine();
+
         }
     }
 }
