@@ -1,20 +1,89 @@
-﻿namespace StringsConsoleApp
+﻿using System;
+
+namespace StringsConsoleApp
 {
     public static class BigNumberSummator
     {
+        private static bool resultIsNegative;
+        private static bool firstIsNegative;
+        private static bool secondIsNegative;
+        
+        public static string Sum(string first, string second)
+        {
+            Validate(first);
+            Validate(second);
+
+            //TrimZeroes(first);
+            //TrimZeroes(second);
+
+            firstIsNegative = IsNegative(first);
+            secondIsNegative = IsNegative(second);
+            
+            if (firstIsNegative ^ secondIsNegative)
+            {
+                return SumDiffSignedNumbers(first, second);
+            }
+            else
+            {
+                first = RemoveSign(first);
+                second = RemoveSign(second);
+                resultIsNegative = firstIsNegative;
+                return AddSign(SumSameSignedNumbers(first, second));
+            }
+        }
+
+        private static string AddSign(string result)
+        {
+            if (resultIsNegative)
+                return result.Insert(0, "-");
+            return result;
+        }
+
+        private static void Validate(string number)
+        {
+            if (string.IsNullOrWhiteSpace(number))
+                throw new ArgumentNullException("The input string shouldn't be null, empty or whitespace");
+
+            var argEx = new ArgumentException("The input string shouldn't contain " +
+                "non-digits except for - or + in front of the number");
+
+            if (number.Length == 1 && !IsDigit(number[0]))
+                throw argEx;
+
+            for (int i = 0; i < number.Length; i++)
+            {
+                if (i == 0)
+                    if (!IsDigit(number[0]) && !IsPlusOrMinus(number[0]))
+                        throw argEx;
+                    else
+                        continue;
+
+                if (!IsDigit(number[i]))
+                    throw argEx;
+            }
+                
+        }
+
+        private static bool IsDigit(char c)
+        {
+            return c >= 48 && c <= 57;
+        }
+
+        private static bool IsPlusOrMinus(char c)
+        {
+            return c == 43 || c == 45;
+        }
+
         private static bool IsNegative(string number)
         {
-            return number.IndexOf('-') >= 0;
+            return number[0] == '-';
         }
 
         private static string RemoveSign(string number)
         {
-            if (IsNegative(number))
-                return number.Remove(number.IndexOf('-'), 1);
-            else if (number.IndexOf('+') >= 0)
-                return number.Remove(number.IndexOf('+'), 1);
-            else
-                return number;
+            if (number[0] == '-' || number[0] == '+')
+                return number.Remove(0, 1);
+            return number;
         }
 
         private static string AddMinus(string number)
@@ -100,9 +169,11 @@
 
         private static string SumDiffSignedNumbers(string first, string second)
         {
-            string bigger, smaller;
-            bool negativeFirst, negativeSecond;
-            bool negativeResult;
+            string bigger = string.Empty;
+            string smaller = string.Empty;
+            bool negativeFirst = false;
+            bool negativeSecond = false;
+            bool negativeResult = false;
 
             if (IsNegative(first))
             {
@@ -119,7 +190,10 @@
             }
 
             string max = Max(first, second);
-            if (max.Equals(first))
+            if (max is null)
+            {
+                return "0";
+            } else if (max.Equals(first))
             {
                 negativeResult = negativeFirst;
                 bigger = first;
@@ -129,9 +203,6 @@
                 negativeResult = negativeSecond;
                 bigger = second;
                 smaller = first;
-            } else
-            {
-                return "0";
             }
 
             var difference = GetDifference(bigger, smaller).TrimStart('0');
@@ -237,23 +308,5 @@
             return result;
         }
         
-        public static string Sum(string first, string second)
-        {
-            if (!IsNegative(first) && !IsNegative(second))
-            {
-                first = RemoveSign(first);
-                second = RemoveSign(second);
-                return SumSameSignedNumbers(first, second);
-            } else if (IsNegative(first) && IsNegative(second))
-            {
-                first = RemoveSign(first);
-                second = RemoveSign(second);
-                return AddMinus(SumSameSignedNumbers(first, second));
-            }
-            else
-            {
-                return SumDiffSignedNumbers(first, second);
-            }
-        }
     }
 }

@@ -21,10 +21,10 @@ namespace StringsConsoleApp
             //var doubled = MatchDoubler.DoubleMatchedChars(text, charsToDouble);
             //Console.WriteLine(doubled);
 
-            //var n1 = "20072";
-            //var n2 = "-779";
+            //var n1 = "18446744-073709551615";
+            //var n2 = "1";
             //var sum = BigNumberSummator.Sum(n1, n2);
-            //Console.WriteLine(sum);
+            //Console.WriteLine(sum);                    
 
             //var input = Console.ReadLine();
             //var input = "is it crazy how saying sentences backwards " +
