@@ -29,7 +29,7 @@ namespace ConverterLibrary
                     continue;
                 }
 
-                int digit = str[i] - 48;
+                int digit = (int)char.GetNumericValue(str[i]);
                 CheckDigit(digit);
                 Logger.LogTrace("Next digit is " + digit);
 
@@ -57,7 +57,7 @@ namespace ConverterLibrary
 
         private void CheckDigit(int digit)
         {
-            if (digit > 9 || digit < 0)
+            if (digit == -1)
             {
                 var ex = new ArgumentException("Cannot convert to int, it contains non-digit symbols");
                 Logger.LogError(ex.Message);
@@ -65,9 +65,9 @@ namespace ConverterLibrary
             }
         }
 
-        private bool IsMinus(int c)
+        private bool IsMinus(char c)
         {
-            return c == 45;
+            return c == '-';
         }
 
         private void CheckRange(int num, int digit)
