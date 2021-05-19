@@ -17,7 +17,7 @@
 
         public int Points { get; }
 
-        public static int GetCount()
+        public static int GetTotalBonusesCount()
         {
             return _count;
         }

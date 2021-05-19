@@ -14,7 +14,7 @@
 
         public abstract void Move(Field field, Location playerLocation);
 
-        public static int GetCount()
+        public static int GetTotalMonstersCount()
         {
             return _count;
         }

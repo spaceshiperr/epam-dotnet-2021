@@ -12,7 +12,7 @@
 
         public Location Location { get; set; }
 
-        public static int GetCount()
+        public static int GetTotalObstaclesCount()
         {
             return _count;
         }
