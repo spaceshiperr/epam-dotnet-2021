@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using static DelegateApp.IBubbleSorter;
+using static DelegateApp.ISorter;
 
 namespace DelegateApp.Tests
 {
     [TestFixture]
-    class BubbleSorterTests
+    class SorterTests
     {
-        BubbleSorter sorter;
+        Sorter sorter;
         
         [SetUp]
         public void SetUp()
         {
-            sorter = new BubbleSorter();
+            sorter = new Sorter();
         }
 
         [TearDown]
@@ -23,7 +23,7 @@ namespace DelegateApp.Tests
         }
 
         [Test]
-        public void BubbleSort_ArrayIsNull_ThrowsArgumentNullException()
+        public void Sort_ArrayIsNull_ThrowsArgumentNullException()
         {
             var testOrder = OrderType.Asc;
             var testComparison = ComparisonType.MaxRowElement;
@@ -31,20 +31,20 @@ namespace DelegateApp.Tests
 
             sorter.SetStategy(testOrder, testComparison);
 
-            Assert.That(() => sorter.BubbleSort(array), Throws.ArgumentNullException);
+            Assert.That(() => sorter.Sort(array), Throws.ArgumentNullException);
         }
 
         [Test]
-        public void BubbleSort_StategyIsNull_ThrowsNullReferenceException()
+        public void Sort_StategyIsNull_ThrowsNullReferenceException()
         {
             int[,] array = { { 1, 2, 3 } };
 
-            Assert.That(() => sorter.BubbleSort(array), Throws.TypeOf<NullReferenceException>());
+            Assert.That(() => sorter.Sort(array), Throws.TypeOf<NullReferenceException>());
         }
 
         [Test]
         [TestCaseSource(nameof(ArrayData))]
-        public void BubbleSort_SortBySumsOfRowElementsAsc_ReturnsSortedArray(int[,] array)
+        public void Sort_BubbleSortBySumsOfRowElementsAsc_ReturnsSortedArray(int[,] array)
         {
             var order = OrderType.Asc;
             var comparison = ComparisonType.SumsOfRowElements;
@@ -56,14 +56,14 @@ namespace DelegateApp.Tests
             };
 
             sorter.SetStategy(order, comparison);
-            var result = sorter.BubbleSort(array);
+            var result = sorter.Sort(array);
 
             Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCaseSource(nameof(ArrayData))]
-        public void BubbleSort_SortBySumsOfRowElementsDesc_ReturnsSortedArray(int[,] array)
+        public void Sort_BubbleSortBySumsOfRowElementsDesc_ReturnsSortedArray(int[,] array)
         {
             var order = OrderType.Desc;
             var comparison = ComparisonType.SumsOfRowElements;
@@ -75,14 +75,14 @@ namespace DelegateApp.Tests
             };
 
             sorter.SetStategy(order, comparison);
-            var result = sorter.BubbleSort(array);
+            var result = sorter.Sort(array);
 
             Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCaseSource(nameof(ArrayData))]
-        public void BubbleSort_SortByMaxRowElementAsc_ReturnsSortedArray(int[,] array)
+        public void Sort_BubbleSortByMaxRowElementAsc_ReturnsSortedArray(int[,] array)
         {
             var order = OrderType.Asc;
             var comparison = ComparisonType.MaxRowElement;
@@ -94,14 +94,14 @@ namespace DelegateApp.Tests
             };
 
             sorter.SetStategy(order, comparison);
-            var result = sorter.BubbleSort(array);
+            var result = sorter.Sort(array);
 
             Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCaseSource(nameof(ArrayData))]
-        public void BubbleSort_SortByMaxRowElementDesc_ReturnsSortedArray(int[,] array)
+        public void Sort_BubbleSortByMaxRowElementDesc_ReturnsSortedArray(int[,] array)
         {
             var order = OrderType.Desc;
             var comparison = ComparisonType.MaxRowElement;
@@ -113,14 +113,14 @@ namespace DelegateApp.Tests
             };
 
             sorter.SetStategy(order, comparison);
-            var result = sorter.BubbleSort(array);
+            var result = sorter.Sort(array);
 
             Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCaseSource(nameof(ArrayData))]
-        public void BubbleSort_SortByMinRowElementAsc_ReturnsSortedArray(int[,] array)
+        public void Sort_BubbleSortByMinRowElementAsc_ReturnsSortedArray(int[,] array)
         {
             var order = OrderType.Asc;
             var comparison = ComparisonType.MinRowElement;
@@ -132,14 +132,14 @@ namespace DelegateApp.Tests
             };
 
             sorter.SetStategy(order, comparison);
-            var result = sorter.BubbleSort(array);
+            var result = sorter.Sort(array);
 
             Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCaseSource(nameof(ArrayData))]
-        public void BubbleSort_SortByMinRowElementDesc_ReturnsSortedArray(int[,] array)
+        public void Sort_BubbleSortByMinRowElementDesc_ReturnsSortedArray(int[,] array)
         {
             var order = OrderType.Desc;
             var comparison = ComparisonType.MinRowElement;
@@ -151,20 +151,20 @@ namespace DelegateApp.Tests
             };
 
             sorter.SetStategy(order, comparison);
-            var result = sorter.BubbleSort(array);
+            var result = sorter.Sort(array);
 
             Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
-        public void BubbleSort_ArrayHasOneRow_ReturnsSameArray()
+        public void Sort_BubbleArrayHasOneRow_ReturnsSameArray()
         {
             var testOrder = OrderType.Desc;
             var testComparison = ComparisonType.MinRowElement;
             int[,] array = { { 1, 2, 3 } };
 
             sorter.SetStategy(testOrder, testComparison);
-            var result = sorter.BubbleSort(array);
+            var result = sorter.Sort(array);
 
             Assert.That(result, Is.EqualTo(array));
         }
