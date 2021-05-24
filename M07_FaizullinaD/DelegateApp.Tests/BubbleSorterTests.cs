@@ -22,16 +22,6 @@ namespace DelegateApp.Tests
             sorter = null;
         }
 
-        private static IEnumerable<int[,]> ArrayData()
-        {
-            yield return new int[3, 5]
-            {
-                { 2, 1, 4, 6, 0 }, //sum 13, max 6, min 0
-                { 4, -1, 5, 2, -6 }, // sum 4, max 5, min -6
-                { 0, 9, 2, -3, 7 } //sum 15, max 9, min -3
-            };
-        }
-
         [Test]
         public void BubbleSort_ArrayIsNull_ThrowsArgumentNullException()
         {
@@ -179,5 +169,14 @@ namespace DelegateApp.Tests
             Assert.That(result, Is.EqualTo(array));
         }
 
+        private static IEnumerable<int[,]> ArrayData()
+        {
+            yield return new int[3, 5]
+            {
+                { 2, 1, 4, 6, 0 }, //sum 13, max 6, min 0
+                { 4, -1, 5, 2, -6 }, // sum 4, max 5, min -6
+                { 0, 9, 2, -3, 7 } //sum 15, max 9, min -3
+            };
+        }
     }
 }
