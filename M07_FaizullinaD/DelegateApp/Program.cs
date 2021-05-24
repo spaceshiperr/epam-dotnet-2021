@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DelegateApp.IBubbleSorter;
 
 namespace DelegateApp
 {
@@ -10,7 +11,7 @@ namespace DelegateApp
     {
         static void Main(string[] args)
         {
-            
+
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static DelegateApp.IBubbleSorter;
+using static DelegateApp.BubbleSortMethods;
 
 namespace DelegateApp
 {
@@ -22,30 +19,38 @@ namespace DelegateApp
             MinRowElement
         }
 
-        int[,] BubbleSort(int[,] array, OrderType order, ComparisonType comparison);
+        int[,] BubbleSort(int[,] array);
     }
-
    
-    class BubbleSorter: IBubbleSorter
+    public class BubbleSorter: IBubbleSorter
     {
         private Sort strategy;
 
-        public delegate int[,] Sort(int[,] array, OrderType order, ComparisonType comparison);
+        public delegate int[,] Sort(int[,] array);
         
-        public int[,] BubbleSort(int[,] array, OrderType order, ComparisonType comparison)
+        public void SetStategy(OrderType order, ComparisonType comparison)
+        {
+            strategy = comparison switch
+            {
+                ComparisonType.SumsOfRowElements when order.Equals(OrderType.Asc) => BubbleSortByRowSumsAsc,
+                ComparisonType.SumsOfRowElements when order.Equals(OrderType.Desc) => BubbleSortByRowSumsDesc,
+                ComparisonType.MaxRowElement when order.Equals(OrderType.Asc) => BubbleSortByMaxRowElementAsc,
+                ComparisonType.MaxRowElement when order.Equals(OrderType.Desc) => BubbleSortByMaxRowElementDesc,
+                ComparisonType.MinRowElement when order.Equals(OrderType.Asc) => BubbleSortByMinRowElementAsc,
+                ComparisonType.MinRowElement when order.Equals(OrderType.Desc) => BubbleSortByMinRowElementDesc,
+                _ => throw new Exception(nameof(order) + ", " + nameof(comparison))
+            };
+        }
+
+        public int[,] BubbleSort(int[,] array)
         {
             if (array is null)
                 throw new ArgumentNullException(nameof(array) + ": the array cannot be null");
 
             if (strategy is null)
                 throw new NullReferenceException(nameof(strategy) + ": you must set the strategy");
-            
-            return strategy(array, order, comparison);
-        }
 
-        public void SetStategy(Sort strategy)
-        {
-            this.strategy = strategy;
+            return strategy(array);
         }
     }
 }

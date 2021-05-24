@@ -1,35 +1,70 @@
-﻿using static DelegateApp.IBubbleSorter;
-
-
-namespace DelegateApp
+﻿namespace DelegateApp
 {
-    public class BubbleSortMethods
+    public static class BubbleSortMethods
     {
         private delegate int GetRowSortElement(int[,] array, int row);
 
-        public int[,] Sort(int[,] array, OrderType order, ComparisonType comparison)
+        public static int[,] BubbleSortByRowSumsAsc(int[,] array)
         {
-            GetRowSortElement sortElement = comparison switch
-            {
-                ComparisonType.SumsOfRowElements => SumRowElements,
-                ComparisonType.MaxRowElement => GetMinElement,
-                ComparisonType.MinRowElement => GetMaxElement
-            };
-
+            var sortElement = new GetRowSortElement(SumRowElements);
             var tupleArray = CreateTupleArray(array, sortElement);
 
-            if (order.Equals(OrderType.Asc))
-                BubbleSortAsc(ref tupleArray);
-
-            if (order.Equals(OrderType.Desc))
-                BubbleSortDesc(ref tupleArray);
-
-            var sortedArray = GetSortedArray(array, tupleArray);
-
-            return sortedArray;
+            BubbleSortAsc(ref tupleArray);
+            
+            return GetSortedArray(array, tupleArray);
         }
 
-        private int SumRowElements(int[,] array, int row)
+        public static int[,] BubbleSortByRowSumsDesc(int[,] array)
+        {
+            var sortElement = new GetRowSortElement(SumRowElements);
+            var tupleArray = CreateTupleArray(array, sortElement);
+
+            BubbleSortDesc(ref tupleArray);
+            
+            return GetSortedArray(array, tupleArray);
+        }
+
+        public static int[,] BubbleSortByMaxRowElementAsc(int[,] array)
+        {
+            var sortElement = new GetRowSortElement(GetMaxElement);
+            var tupleArray = CreateTupleArray(array, sortElement);
+            
+            BubbleSortAsc(ref tupleArray);
+
+            return GetSortedArray(array, tupleArray);
+        }
+
+        public static int[,] BubbleSortByMaxRowElementDesc(int[,] array)
+        {
+            var sortElement = new GetRowSortElement(GetMaxElement);
+            var tupleArray = CreateTupleArray(array, sortElement);
+            
+            BubbleSortDesc(ref tupleArray);
+
+            return GetSortedArray(array, tupleArray);
+        }
+
+        public static int[,] BubbleSortByMinRowElementAsc(int[,] array)
+        {
+            var sortElement = new GetRowSortElement(GetMinElement);
+            var tupleArray = CreateTupleArray(array, sortElement);
+
+            BubbleSortAsc(ref tupleArray);
+
+            return GetSortedArray(array, tupleArray);
+        }
+
+        public static int[,] BubbleSortByMinRowElementDesc(int[,] array)
+        {
+            var sortElement = new GetRowSortElement(GetMinElement);
+            var tupleArray = CreateTupleArray(array, sortElement);
+
+            BubbleSortDesc(ref tupleArray);
+
+            return GetSortedArray(array, tupleArray);
+        }
+
+        private static int SumRowElements(int[,] array, int row)
         {
             int sum = 0;
             int n = array.GetLength(1);
@@ -40,7 +75,7 @@ namespace DelegateApp
             return sum;
         }
 
-        private int GetMaxElement(int[,] array, int row)
+        private static int GetMaxElement(int[,] array, int row)
         {
             int max = array[row, 0];
             int n = array.GetLength(1);
@@ -52,7 +87,7 @@ namespace DelegateApp
             return max;
         }
 
-        private int GetMinElement(int[,] array, int row)
+        private static int GetMinElement(int[,] array, int row)
         {
             int min = array[row, 0];
             int n = array.GetLength(1);
@@ -64,7 +99,22 @@ namespace DelegateApp
             return min;
         }
 
-        private void BubbleSortAsc(ref (int Value, int Row)[] array)
+        private static (int, int)[] CreateTupleArray(int[,] array, GetRowSortElement getElement)
+        {
+            var rowCount = array.GetLength(0);
+            var tupleArray = new (int Value, int Row)[rowCount];
+
+            for (int i = 0; i < rowCount; i++)
+            {
+                var sum = getElement(array, i);
+                tupleArray[i].Value = sum;
+                tupleArray[i].Row = i;
+            }
+
+            return tupleArray;
+        }
+
+        private static void BubbleSortAsc(ref (int Value, int Row)[] array)
         {
             int n = array.Length;
 
@@ -87,24 +137,7 @@ namespace DelegateApp
             }
         }
 
-        private int[,] GetSortedArray(int[,] array, (int Value, int Row)[] tupleArray)
-        {
-            var rowCount = array.GetLength(0);
-            var colCount = array.GetLength(1);
-            var newArray = new int[rowCount, colCount];
-
-            for (int i = 0; i < rowCount; i++)
-            {
-                for (int j = 0; j < colCount; j++)
-                {
-                    newArray[i, j] = array[tupleArray[i].Row, j];
-                }
-            }
-
-            return newArray;
-        }
-
-        private void BubbleSortDesc(ref (int Value, int Row)[] array)
+        private static void BubbleSortDesc(ref (int Value, int Row)[] array)
         {
             int n = array.Length;
 
@@ -127,19 +160,21 @@ namespace DelegateApp
             }
         }
 
-        private (int, int)[] CreateTupleArray(int[,] array, GetRowSortElement getElement)
+        private static int[,] GetSortedArray(int[,] array, (int Value, int Row)[] tupleArray)
         {
             var rowCount = array.GetLength(0);
-            var tupleArray = new (int Value, int Row)[rowCount];
+            var colCount = array.GetLength(1);
+            var newArray = new int[rowCount, colCount];
 
             for (int i = 0; i < rowCount; i++)
             {
-                var sum = getElement(array, i);
-                tupleArray[i].Value = sum;
-                tupleArray[i].Row = i;
+                for (int j = 0; j < colCount; j++)
+                {
+                    newArray[i, j] = array[tupleArray[i].Row, j];
+                }
             }
 
-            return tupleArray;
+            return newArray;
         }
     }
 }
