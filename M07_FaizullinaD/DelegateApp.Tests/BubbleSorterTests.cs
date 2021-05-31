@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using NUnit.Framework;
 using static DelegateApp.ISorter;
 
@@ -9,6 +8,16 @@ namespace DelegateApp.Tests
     class SorterTests
     {
         Sorter sorter;
+
+        static object[] DataArray =
+        {
+            new int[3, 5]
+            {
+                { 2, 1, 4, 6, 0 }, //sum 13, max 6, min 0
+                { 4, -1, 5, 2, -6 }, // sum 4, max 5, min -6
+                { 0, 9, 2, -3, 7 } //sum 15, max 9, min -3
+            }
+        };
         
         [SetUp]
         public void SetUp()
@@ -43,7 +52,7 @@ namespace DelegateApp.Tests
         }
 
         [Test]
-        [TestCaseSource(nameof(ArrayData))]
+        [TestCaseSource(nameof(DataArray))]
         public void Sort_BubbleSortBySumsOfRowElementsAsc_ReturnsSortedArray(int[,] array)
         {
             var order = OrderType.Asc;
@@ -62,7 +71,7 @@ namespace DelegateApp.Tests
         }
 
         [Test]
-        [TestCaseSource(nameof(ArrayData))]
+        [TestCaseSource(nameof(DataArray))]
         public void Sort_BubbleSortBySumsOfRowElementsDesc_ReturnsSortedArray(int[,] array)
         {
             var order = OrderType.Desc;
@@ -81,7 +90,7 @@ namespace DelegateApp.Tests
         }
 
         [Test]
-        [TestCaseSource(nameof(ArrayData))]
+        [TestCaseSource(nameof(DataArray))]
         public void Sort_BubbleSortByMaxRowElementAsc_ReturnsSortedArray(int[,] array)
         {
             var order = OrderType.Asc;
@@ -100,7 +109,7 @@ namespace DelegateApp.Tests
         }
 
         [Test]
-        [TestCaseSource(nameof(ArrayData))]
+        [TestCaseSource(nameof(DataArray))]
         public void Sort_BubbleSortByMaxRowElementDesc_ReturnsSortedArray(int[,] array)
         {
             var order = OrderType.Desc;
@@ -119,7 +128,7 @@ namespace DelegateApp.Tests
         }
 
         [Test]
-        [TestCaseSource(nameof(ArrayData))]
+        [TestCaseSource(nameof(DataArray))]
         public void Sort_BubbleSortByMinRowElementAsc_ReturnsSortedArray(int[,] array)
         {
             var order = OrderType.Asc;
@@ -138,7 +147,7 @@ namespace DelegateApp.Tests
         }
 
         [Test]
-        [TestCaseSource(nameof(ArrayData))]
+        [TestCaseSource(nameof(DataArray))]
         public void Sort_BubbleSortByMinRowElementDesc_ReturnsSortedArray(int[,] array)
         {
             var order = OrderType.Desc;
@@ -169,14 +178,15 @@ namespace DelegateApp.Tests
             Assert.That(result, Is.EqualTo(array));
         }
 
-        private static IEnumerable<int[,]> ArrayData()
-        {
-            yield return new int[3, 5]
-            {
-                { 2, 1, 4, 6, 0 }, //sum 13, max 6, min 0
-                { 4, -1, 5, 2, -6 }, // sum 4, max 5, min -6
-                { 0, 9, 2, -3, 7 } //sum 15, max 9, min -3
-            };
-        }
+        
+        //private static IEnumerable<int[,]> DataArray()
+        //{
+        //    yield return new int[3, 5]
+        //    {
+        //        { 2, 1, 4, 6, 0 }, //sum 13, max 6, min 0
+        //        { 4, -1, 5, 2, -6 }, // sum 4, max 5, min -6
+        //        { 0, 9, 2, -3, 7 } //sum 15, max 9, min -3
+        //    };
+        //}
     }
 }

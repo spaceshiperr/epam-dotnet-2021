@@ -3,33 +3,35 @@ using System.Threading;
 
 namespace DelegateApp
 {
-    public class CustomEventArgs : EventArgs
+    public class CountdownEventArgs : EventArgs
     {
-        public CustomEventArgs(string message)
+        public CountdownEventArgs(string message, TimeSpan timeout)
         {
             Message = message;
+            Timeout = timeout;
         }
 
         public string Message { get; set; }
+
+        public TimeSpan Timeout { get; set; }
     }
 
     public class Countdown
     {
-        public event EventHandler<CustomEventArgs> RaiseCustomEvent;
+        public event EventHandler<CountdownEventArgs> RaiseCountdownEvent;
 
-        public void DoSomething()
+        public void DoSomething(string message, TimeSpan timeout)
         {
-            OnRaiseCustomEvent(new CustomEventArgs("Event triggered"));
+            OnRaiseCountdownEvent(new CountdownEventArgs(message, timeout));
         }
 
-        protected virtual void OnRaiseCustomEvent(CustomEventArgs e)
+        protected virtual void OnRaiseCountdownEvent(CountdownEventArgs e)
         {
-            EventHandler<CustomEventArgs> raiseEvent = RaiseCustomEvent;
+            EventHandler<CountdownEventArgs> raiseEvent = RaiseCountdownEvent;
 
             if (raiseEvent != null)
             {
-                e.Message += $" at {DateTime.Now}";
-
+                Thread.Sleep(e.Timeout);
                 raiseEvent(this, e);
             }
         }
@@ -37,20 +39,17 @@ namespace DelegateApp
 
     public class Subscriber
     {
-        private readonly string _id;
+        private readonly string id;
 
-        public Subscriber(string id, Countdown countdown, TimeSpan ts)
+        public Subscriber(string id, Countdown countdown)
         {
-            _id = id;
-
-            countdown.RaiseCustomEvent += HandleCustomEvent;
-
-            Thread.Sleep(ts);
+            this.id = id;
+            countdown.RaiseCountdownEvent += HandleCountdownEvent;
         }
 
-        void HandleCustomEvent(object sender, CustomEventArgs e)
+        void HandleCountdownEvent(object sender, CountdownEventArgs e)
         {
-            Console.WriteLine($"{_id} received this message: {e.Message}");
+            Console.WriteLine($"{id} received this message \"{e.Message}\" after timeout of {e.Timeout}");
         }
     }
 }
