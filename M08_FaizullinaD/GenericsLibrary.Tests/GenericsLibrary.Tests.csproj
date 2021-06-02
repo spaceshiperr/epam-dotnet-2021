@@ -52,6 +52,7 @@
     <Compile Include="ArraySearchTests.cs" />
     <Compile Include="FibonacciNumbersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StackTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
