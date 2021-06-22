@@ -138,7 +138,7 @@ namespace GenericsLibrary.Tests
         }
 
         [Test]
-        public void Contains_StackDoesContainItem_ReturnsFalse()
+        public void Contains_StackDoesNotContainItem_ReturnsFalse()
         {
             var item = 1;
             var stack = new Stack<int>(0);

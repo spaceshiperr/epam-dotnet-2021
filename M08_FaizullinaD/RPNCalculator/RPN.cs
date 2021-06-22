@@ -5,7 +5,7 @@ namespace RPNCalculator
 {
     public class RPN
     {
-        private Stack<double> stack { get; set; }
+        private Stack<double> stack;
 
         public RPN()
         {
