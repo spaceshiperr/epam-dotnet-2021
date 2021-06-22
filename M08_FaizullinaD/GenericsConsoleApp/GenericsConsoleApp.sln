@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericsLibrary", "..\Gener
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericsLibrary.Tests", "..\GenericsLibrary.Tests\GenericsLibrary.Tests.csproj", "{2BEF59AB-933F-4DA6-8C3B-273968E499AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPNCalculator", "..\RPNCalculator\RPNCalculator.csproj", "{581C87BC-064B-4DA7-BB8C-D6C2510DFD56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2BEF59AB-933F-4DA6-8C3B-273968E499AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BEF59AB-933F-4DA6-8C3B-273968E499AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BEF59AB-933F-4DA6-8C3B-273968E499AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{581C87BC-064B-4DA7-BB8C-D6C2510DFD56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{581C87BC-064B-4DA7-BB8C-D6C2510DFD56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{581C87BC-064B-4DA7-BB8C-D6C2510DFD56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{581C87BC-064B-4DA7-BB8C-D6C2510DFD56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
