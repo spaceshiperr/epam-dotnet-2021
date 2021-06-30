@@ -39,9 +39,8 @@ namespace DelegateApp
             };
         }
 
-            public static int[,] BubbleSortByRowSumsAsc(int[,] array)
+        public static int[,] BubbleSortByRowSumsAsc(int[,] array)
         {
-            //var sortElement = SumRowElements;
             var tupleArray = CreateTupleArray(array, SumRowElements);
 
             BubbleSortAsc(ref tupleArray);
@@ -51,7 +50,6 @@ namespace DelegateApp
 
         public static int[,] BubbleSortByRowSumsDesc(int[,] array)
         {
-            //var sortElement = new GetRowSortElement(SumRowElements);
             var tupleArray = CreateTupleArray(array, SumRowElements);
 
             BubbleSortDesc(ref tupleArray);
@@ -61,7 +59,6 @@ namespace DelegateApp
 
         public static int[,] BubbleSortByMaxRowElementAsc(int[,] array)
         {
-            //var sortElement = new GetRowSortElement(GetMaxElement);
             var tupleArray = CreateTupleArray(array, GetMaxElement);
             
             BubbleSortAsc(ref tupleArray);
@@ -71,7 +68,6 @@ namespace DelegateApp
 
         public static int[,] BubbleSortByMaxRowElementDesc(int[,] array)
         {
-            //var sortElement = new GetRowSortElement(GetMaxElement);
             var tupleArray = CreateTupleArray(array, GetMaxElement);
             
             BubbleSortDesc(ref tupleArray);
@@ -81,7 +77,6 @@ namespace DelegateApp
 
         public static int[,] BubbleSortByMinRowElementAsc(int[,] array)
         {
-            //var sortElement = new GetRowSortElement(GetMinElement);
             var tupleArray = CreateTupleArray(array, GetMinElement);
 
             BubbleSortAsc(ref tupleArray);
@@ -91,7 +86,6 @@ namespace DelegateApp
 
         public static int[,] BubbleSortByMinRowElementDesc(int[,] array)
         {
-            //var GetMinElement = new GetRowSortElement(GetMinElement);
             var tupleArray = CreateTupleArray(array, GetMinElement);
 
             BubbleSortDesc(ref tupleArray);
