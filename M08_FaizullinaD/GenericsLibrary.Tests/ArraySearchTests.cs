@@ -70,6 +70,7 @@ namespace GenericsLibrary.Tests
 
         [Test]
         [TestCase(new int[] { 263, 1053, 6688, 105901, 106901 }, 1053, 1)]
+        [TestCase(new int[] { 69, 1, 5, 23, 6, 123, 3 }, 3, 6)]
         public void BinarySearch_XIsInArray_ReturnsIndex<T>(T[] array, T x, int expected)
             where T : IComparable<T>
         {
