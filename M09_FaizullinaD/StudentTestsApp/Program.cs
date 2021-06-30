@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using StudentTestsLibrary;
 
 
@@ -75,11 +76,15 @@ namespace StudentTestsApp
         static void Main(string[] args)
         {
             //var results = GetTestResults();
+            string path = Path.Combine(
+                Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
+                "results.json"
+            );
 
-            //var rw = new ResultWriter("results.json");
+            //var rw = new ResultWriter(path);
             //rw.Write(results);
 
-            var rr = new ResultReader("results.json");
+            var rr = new ResultReader(path);
             var results = rr.Read();
 
             do
@@ -91,7 +96,15 @@ namespace StudentTestsApp
 
                     var filter = new ResultFilter(results);
                     var filteredResults = filter.Filter(searchString);
-                    PrintResults(filteredResults);
+                    
+                    if (filteredResults.GetEnumerator().Current != null)
+                    {
+                        PrintResults(filteredResults);
+                    }
+                    else
+                    {
+                        Console.WriteLine("No results matching the pattern found!");
+                    }
                     break;
                 }
                 catch (ArgumentException e)
@@ -101,7 +114,7 @@ namespace StudentTestsApp
                 }
             }
             while (true);
-            
+
             Console.ReadKey();
         }
     }
