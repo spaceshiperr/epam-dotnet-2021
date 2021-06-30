@@ -1,51 +1,42 @@
 ﻿using System;
-using static DelegateApp.ISorter;
-using static DelegateApp.BubbleSortMethods;
 
 namespace DelegateApp
 {
+    
     public interface ISorter
     {
-        enum OrderType
-        {
-            Asc,
-            Desc
-        }
-
-        enum ComparisonType
-        {
-            SumsOfRowElements,
-            MaxRowElement,
-            MinRowElement
-        }
-
         int[,] Sort(int[,] array);
     }
    
     public class Sorter: ISorter
     {
-        private SortDelegate strategy;
+        private StrategyDelegate strategy;
 
-        public delegate int[,] SortDelegate(int[,] array);
+        public delegate int[,] StrategyDelegate(int[,] array);
         
-        public void SetStategy(OrderType order, ComparisonType comparison)
+        //public void SetStategy(OrderType order, ComparisonType comparison)
+        //{
+        //    strategy = comparison switch
+        //    {
+        //        ComparisonType.SumsOfRowElements when 
+        //            order.Equals(OrderType.Asc) => BubbleSortByRowSumsAsc,
+        //        ComparisonType.SumsOfRowElements when 
+        //            order.Equals(OrderType.Desc) => BubbleSortByRowSumsDesc,
+        //        ComparisonType.MaxRowElement when 
+        //            order.Equals(OrderType.Asc) => BubbleSortByMaxRowElementAsc,
+        //        ComparisonType.MaxRowElement when 
+        //            order.Equals(OrderType.Desc) => BubbleSortByMaxRowElementDesc,
+        //        ComparisonType.MinRowElement when 
+        //            order.Equals(OrderType.Asc) => BubbleSortByMinRowElementAsc,
+        //        ComparisonType.MinRowElement when 
+        //            order.Equals(OrderType.Desc) => BubbleSortByMinRowElementDesc,
+        //        _ => throw new Exception(nameof(order) + ", " + nameof(comparison))
+        //    };
+        //}
+
+        public void SetStrategy(StrategyDelegate strategy)
         {
-            strategy = comparison switch
-            {
-                ComparisonType.SumsOfRowElements when 
-                    order.Equals(OrderType.Asc) => BubbleSortByRowSumsAsc,
-                ComparisonType.SumsOfRowElements when 
-                    order.Equals(OrderType.Desc) => BubbleSortByRowSumsDesc,
-                ComparisonType.MaxRowElement when 
-                    order.Equals(OrderType.Asc) => BubbleSortByMaxRowElementAsc,
-                ComparisonType.MaxRowElement when 
-                    order.Equals(OrderType.Desc) => BubbleSortByMaxRowElementDesc,
-                ComparisonType.MinRowElement when 
-                    order.Equals(OrderType.Asc) => BubbleSortByMinRowElementAsc,
-                ComparisonType.MinRowElement when 
-                    order.Equals(OrderType.Desc) => BubbleSortByMinRowElementDesc,
-                _ => throw new Exception(nameof(order) + ", " + nameof(comparison))
-            };
+            this.strategy = strategy;
         }
 
         public int[,] Sort(int[,] array)

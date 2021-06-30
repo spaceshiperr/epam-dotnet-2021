@@ -1,13 +1,13 @@
 ﻿using System;
 using NUnit.Framework;
-using static DelegateApp.ISorter;
+using static DelegateApp.BubbleSorter;
 
 namespace DelegateApp.Tests
 {
     [TestFixture]
-    class SorterTests
+    public class SorterTests
     {
-        Sorter sorter;
+        private Sorter sorter;
 
         static object[] DataArray =
         {
@@ -34,11 +34,12 @@ namespace DelegateApp.Tests
         [Test]
         public void Sort_ArrayIsNull_ThrowsArgumentNullException()
         {
-            var testOrder = OrderType.Asc;
-            var testComparison = ComparisonType.MaxRowElement;
+            var order = OrderType.Asc;
+            var comparison = ComparisonType.MaxRowElement;
             int[,] array = null;
 
-            sorter.SetStategy(testOrder, testComparison);
+            var strategy = GetSortStrategy(comparison, order);
+            sorter.SetStrategy(strategy);
 
             Assert.That(() => sorter.Sort(array), Throws.ArgumentNullException);
         }
@@ -64,7 +65,8 @@ namespace DelegateApp.Tests
                 {0, 9, 2, -3, 7 }
             };
 
-            sorter.SetStategy(order, comparison);
+            var strategy = GetSortStrategy(comparison, order);
+            sorter.SetStrategy(strategy);
             var result = sorter.Sort(array);
 
             Assert.That(result, Is.EqualTo(expected));
@@ -83,7 +85,8 @@ namespace DelegateApp.Tests
                 {4, -1, 5, 2, -6 }
             };
 
-            sorter.SetStategy(order, comparison);
+            var strategy = GetSortStrategy(comparison, order);
+            sorter.SetStrategy(strategy);
             var result = sorter.Sort(array);
 
             Assert.That(result, Is.EqualTo(expected));
@@ -102,7 +105,8 @@ namespace DelegateApp.Tests
                 {0, 9, 2, -3, 7 },
             };
 
-            sorter.SetStategy(order, comparison);
+            var strategy = GetSortStrategy(comparison, order);
+            sorter.SetStrategy(strategy);
             var result = sorter.Sort(array);
 
             Assert.That(result, Is.EqualTo(expected));
@@ -121,7 +125,8 @@ namespace DelegateApp.Tests
                 {4, -1, 5, 2, -6 }
             };
 
-            sorter.SetStategy(order, comparison);
+            var strategy = GetSortStrategy(comparison, order);
+            sorter.SetStrategy(strategy);
             var result = sorter.Sort(array);
 
             Assert.That(result, Is.EqualTo(expected));
@@ -140,7 +145,8 @@ namespace DelegateApp.Tests
                 { 2, 1, 4, 6, 0 }
             };
 
-            sorter.SetStategy(order, comparison);
+            var strategy = GetSortStrategy(comparison, order);
+            sorter.SetStrategy(strategy);
             var result = sorter.Sort(array);
 
             Assert.That(result, Is.EqualTo(expected));
@@ -159,7 +165,8 @@ namespace DelegateApp.Tests
                 {4, -1, 5, 2, -6 },
             };
 
-            sorter.SetStategy(order, comparison);
+            var strategy = GetSortStrategy(comparison, order);
+            sorter.SetStrategy(strategy);
             var result = sorter.Sort(array);
 
             Assert.That(result, Is.EqualTo(expected));
@@ -168,11 +175,12 @@ namespace DelegateApp.Tests
         [Test]
         public void Sort_BubbleArrayHasOneRow_ReturnsSameArray()
         {
-            var testOrder = OrderType.Desc;
-            var testComparison = ComparisonType.MinRowElement;
+            var order = OrderType.Desc;
+            var comparison = ComparisonType.MinRowElement;
             int[,] array = { { 1, 2, 3 } };
 
-            sorter.SetStategy(testOrder, testComparison);
+            var strategy = GetSortStrategy(comparison, order);
+            sorter.SetStrategy(strategy);
             var result = sorter.Sort(array);
 
             Assert.That(result, Is.EqualTo(array));

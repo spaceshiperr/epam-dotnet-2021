@@ -1,23 +1,58 @@
-﻿namespace DelegateApp
-{
-    public static class BubbleSortMethods
-    {
-        private delegate int GetRowSortElement(int[,] array, int row);
+﻿using System;
+using static DelegateApp.Sorter;
 
-        public static int[,] BubbleSortByRowSumsAsc(int[,] array)
+namespace DelegateApp
+{
+    public static class BubbleSorter
+    {
+        public enum OrderType
         {
-            var sortElement = new GetRowSortElement(SumRowElements);
-            var tupleArray = CreateTupleArray(array, sortElement);
+            Asc,
+            Desc
+        }
+
+        public enum ComparisonType
+        {
+            SumsOfRowElements,
+            MaxRowElement,
+            MinRowElement
+        }
+
+        private delegate int RowSortDelegate(int[,] array, int row);
+        public static StrategyDelegate GetSortStrategy(ComparisonType comparison, OrderType order)
+        {
+            return comparison switch
+            {
+                ComparisonType.SumsOfRowElements when
+                    order.Equals(OrderType.Asc) => BubbleSortByRowSumsAsc,
+                ComparisonType.SumsOfRowElements when
+                    order.Equals(OrderType.Desc) => BubbleSortByRowSumsDesc,
+                ComparisonType.MaxRowElement when
+                    order.Equals(OrderType.Asc) => BubbleSortByMaxRowElementAsc,
+                ComparisonType.MaxRowElement when
+                    order.Equals(OrderType.Desc) => BubbleSortByMaxRowElementDesc,
+                ComparisonType.MinRowElement when
+                    order.Equals(OrderType.Asc) => BubbleSortByMinRowElementAsc,
+                ComparisonType.MinRowElement when
+                    order.Equals(OrderType.Desc) => BubbleSortByMinRowElementDesc,
+                _ => throw new Exception(nameof(order) + ", " + nameof(comparison))
+            };
+        }
+
+            public static int[,] BubbleSortByRowSumsAsc(int[,] array)
+        {
+            //var sortElement = SumRowElements;
+            var tupleArray = CreateTupleArray(array, SumRowElements);
 
             BubbleSortAsc(ref tupleArray);
             
             return GetSortedArray(array, tupleArray);
-        }
+        }   
 
         public static int[,] BubbleSortByRowSumsDesc(int[,] array)
         {
-            var sortElement = new GetRowSortElement(SumRowElements);
-            var tupleArray = CreateTupleArray(array, sortElement);
+            //var sortElement = new GetRowSortElement(SumRowElements);
+            var tupleArray = CreateTupleArray(array, SumRowElements);
 
             BubbleSortDesc(ref tupleArray);
             
@@ -26,8 +61,8 @@
 
         public static int[,] BubbleSortByMaxRowElementAsc(int[,] array)
         {
-            var sortElement = new GetRowSortElement(GetMaxElement);
-            var tupleArray = CreateTupleArray(array, sortElement);
+            //var sortElement = new GetRowSortElement(GetMaxElement);
+            var tupleArray = CreateTupleArray(array, GetMaxElement);
             
             BubbleSortAsc(ref tupleArray);
 
@@ -36,8 +71,8 @@
 
         public static int[,] BubbleSortByMaxRowElementDesc(int[,] array)
         {
-            var sortElement = new GetRowSortElement(GetMaxElement);
-            var tupleArray = CreateTupleArray(array, sortElement);
+            //var sortElement = new GetRowSortElement(GetMaxElement);
+            var tupleArray = CreateTupleArray(array, GetMaxElement);
             
             BubbleSortDesc(ref tupleArray);
 
@@ -46,8 +81,8 @@
 
         public static int[,] BubbleSortByMinRowElementAsc(int[,] array)
         {
-            var sortElement = new GetRowSortElement(GetMinElement);
-            var tupleArray = CreateTupleArray(array, sortElement);
+            //var sortElement = new GetRowSortElement(GetMinElement);
+            var tupleArray = CreateTupleArray(array, GetMinElement);
 
             BubbleSortAsc(ref tupleArray);
 
@@ -56,8 +91,8 @@
 
         public static int[,] BubbleSortByMinRowElementDesc(int[,] array)
         {
-            var sortElement = new GetRowSortElement(GetMinElement);
-            var tupleArray = CreateTupleArray(array, sortElement);
+            //var GetMinElement = new GetRowSortElement(GetMinElement);
+            var tupleArray = CreateTupleArray(array, GetMinElement);
 
             BubbleSortDesc(ref tupleArray);
 
@@ -99,15 +134,15 @@
             return min;
         }
 
-        private static (int, int)[] CreateTupleArray(int[,] array, GetRowSortElement getElement)
+        private static (int, int)[] CreateTupleArray(int[,] array, RowSortDelegate getElement)
         {
             var rowCount = array.GetLength(0);
             var tupleArray = new (int Value, int Row)[rowCount];
 
             for (int i = 0; i < rowCount; i++)
             {
-                var sum = getElement(array, i);
-                tupleArray[i].Value = sum;
+                var element = getElement(array, i);
+                tupleArray[i].Value = element;
                 tupleArray[i].Row = i;
             }
 

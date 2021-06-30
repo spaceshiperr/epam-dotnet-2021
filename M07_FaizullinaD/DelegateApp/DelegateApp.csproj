@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Countdown.cs" />
     <Compile Include="Sorter.cs" />
-    <Compile Include="BubbleSortMethods.cs" />
+    <Compile Include="BubbleSorter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
