@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using StudentTestsLibrary;
 
 
@@ -97,7 +98,7 @@ namespace StudentTestsApp
                     var filter = new ResultFilter(results);
                     var filteredResults = filter.Filter(searchString);
                     
-                    if (filteredResults.GetEnumerator().Current != null)
+                    if (filteredResults.Any())
                     {
                         PrintResults(filteredResults);
                     }
