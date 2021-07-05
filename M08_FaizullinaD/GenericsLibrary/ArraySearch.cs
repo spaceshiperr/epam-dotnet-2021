@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace GenericsLibrary
 {
@@ -10,24 +11,22 @@ namespace GenericsLibrary
 				throw new ArgumentNullException(nameof(array) + ": array cannot be null");
 
 			T[] sortedArray = new T[array.Length];
+			var keys = Enumerable.Range(0, array.Length).ToArray();
 
 			array.CopyTo(sortedArray, 0);
-			Array.Sort(sortedArray);
+			Array.Sort(sortedArray, keys);
 
-			var contains = BinarySearchRecursive(sortedArray, 0, sortedArray.Length - 1, x);
+			var index = BinarySearchRecursive(sortedArray, 0, sortedArray.Length - 1, x);
 
-			if (contains)
+            if (index != -1)
             {
-				for (int i = 0; i < array.Length; i++)
-					if (array[i].Equals(x))
-						return i;
-				return -1;
-			}
-			else
-				return -1;
+				index = keys[index];
+            }
+
+			return index;
         }
 
-		private static bool BinarySearchRecursive<T>(T[] array, int left, int right, T x) 
+		private static int BinarySearchRecursive<T>(T[] array, int left, int right, T x) 
 			where T : IComparable<T>
 		{
 			if (right >= left)
@@ -35,7 +34,7 @@ namespace GenericsLibrary
 				int middle = left + (right - left) / 2;
 
 				if (array[middle].Equals(x))
-					return true;
+					return middle;
 
 				if (array[middle].CompareTo(x) > 0)
 					return BinarySearchRecursive(array, left, middle - 1, x);
@@ -43,7 +42,7 @@ namespace GenericsLibrary
 				return BinarySearchRecursive(array, middle + 1, right, x);
 			}
 
-			return false;
+			return -1;
 		}
 	}
 }
