@@ -1,5 +1,4 @@
 ﻿using System;
-using static DelegateApp.Sorter;
 
 namespace DelegateApp
 {
@@ -18,8 +17,7 @@ namespace DelegateApp
             MinRowElement
         }
 
-        private delegate int RowSortDelegate(int[,] array, int row);
-        public static StrategyDelegate GetSortStrategy(ComparisonType comparison, OrderType order)
+        public static Func<int[,], int[,]> GetSortStrategy(ComparisonType comparison, OrderType order)
         {
             return comparison switch
             {
@@ -128,7 +126,7 @@ namespace DelegateApp
             return min;
         }
 
-        private static (int, int)[] CreateTupleArray(int[,] array, RowSortDelegate getElement)
+        private static (int, int)[] CreateTupleArray(int[,] array, Func<int[,], int, int> getElement)
         {
             var rowCount = array.GetLength(0);
             var tupleArray = new (int Value, int Row)[rowCount];

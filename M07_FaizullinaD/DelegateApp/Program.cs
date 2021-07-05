@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using static DelegateApp.BubbleSorter;
-using static DelegateApp.Sorter;
 
 namespace DelegateApp
 {
@@ -65,7 +64,7 @@ namespace DelegateApp
             return new Tuple<int ,int>(rowCount, colCount);
         }
 
-        public static StrategyDelegate ReadStategy()
+        public static Func<int[,], int[,]> ReadStategy()
         {
             Console.WriteLine("Enter the comparison type (SumsOfRowElements, MinRowElement, MaxRowElement):");
             var comparisonInput = Console.ReadLine();
@@ -98,8 +97,7 @@ namespace DelegateApp
             var strategy = ReadStategy();
 
             var sorter = new Sorter();
-            sorter.SetStrategy(strategy);
-            var sorted = sorter.Sort(array);
+            var sorted = sorter.Sort(strategy, array);
             
             PrintArray(sorted);
         }

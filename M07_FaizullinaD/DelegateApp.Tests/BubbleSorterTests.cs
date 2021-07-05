@@ -39,17 +39,16 @@ namespace DelegateApp.Tests
             int[,] array = null;
 
             var strategy = GetSortStrategy(comparison, order);
-            sorter.SetStrategy(strategy);
 
-            Assert.That(() => sorter.Sort(array), Throws.ArgumentNullException);
+            Assert.That(() => sorter.Sort(strategy, array), Throws.ArgumentNullException);
         }
 
         [Test]
-        public void Sort_StategyIsNull_ThrowsNullReferenceException()
+        public void Sort_StategyIsNull_ThrowsArgumentNullException()
         {
             int[,] array = { { 1, 2, 3 } };
 
-            Assert.That(() => sorter.Sort(array), Throws.TypeOf<NullReferenceException>());
+            Assert.That(() => sorter.Sort(null, array), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -66,8 +65,7 @@ namespace DelegateApp.Tests
             };
 
             var strategy = GetSortStrategy(comparison, order);
-            sorter.SetStrategy(strategy);
-            var result = sorter.Sort(array);
+            var result = sorter.Sort(strategy, array);
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -86,8 +84,7 @@ namespace DelegateApp.Tests
             };
 
             var strategy = GetSortStrategy(comparison, order);
-            sorter.SetStrategy(strategy);
-            var result = sorter.Sort(array);
+            var result = sorter.Sort(strategy, array);
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -106,8 +103,7 @@ namespace DelegateApp.Tests
             };
 
             var strategy = GetSortStrategy(comparison, order);
-            sorter.SetStrategy(strategy);
-            var result = sorter.Sort(array);
+            var result = sorter.Sort(strategy, array);
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -126,8 +122,7 @@ namespace DelegateApp.Tests
             };
 
             var strategy = GetSortStrategy(comparison, order);
-            sorter.SetStrategy(strategy);
-            var result = sorter.Sort(array);
+            var result = sorter.Sort(strategy, array);
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -146,8 +141,7 @@ namespace DelegateApp.Tests
             };
 
             var strategy = GetSortStrategy(comparison, order);
-            sorter.SetStrategy(strategy);
-            var result = sorter.Sort(array);
+            var result = sorter.Sort(strategy, array);
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -166,8 +160,7 @@ namespace DelegateApp.Tests
             };
 
             var strategy = GetSortStrategy(comparison, order);
-            sorter.SetStrategy(strategy);
-            var result = sorter.Sort(array);
+            var result = sorter.Sort(strategy, array);
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -180,8 +173,7 @@ namespace DelegateApp.Tests
             int[,] array = { { 1, 2, 3 } };
 
             var strategy = GetSortStrategy(comparison, order);
-            sorter.SetStrategy(strategy);
-            var result = sorter.Sort(array);
+            var result = sorter.Sort(strategy, array);
 
             Assert.That(result, Is.EqualTo(array));
         }
