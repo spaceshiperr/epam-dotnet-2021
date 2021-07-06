@@ -1,15 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using System.Text.RegularExpressions;
+using Entity.Additional;
 
 namespace Entity.Entity
 {
     public class Lecturer
     {
-        public string Name { get; set; }
+        private string email;
+        
+        public Lecturer(int id,
+                       string firstName,
+                       string lastName,
+                       string email)
+        {
+            Id = id;
+            Name = new Name(firstName, lastName);
+            Email = email;
+        }
 
-        public string Surname { get; set; }
+        public int Id { get; }
 
-        public string Email { get; set; }
+        public Name Name { get; }
 
-        public List<Course> Courses { get; set; }
+        public string Email
+        {
+            get { return email; }
+            set
+            {
+                var regexString1 = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|";
+                var regexString2 = @"(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+                var regex = new Regex(regexString1 + regexString2, RegexOptions.CultureInvariant | RegexOptions.Singleline);
+                if (regex.IsMatch(value))
+                    email = value;
+                else
+                    throw new System.Exception();
+            }
+        }
     }
 }

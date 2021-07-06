@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entity\Course.cs" />
+    <Compile Include="Additional\Name.cs" />
     <Compile Include="Entity\Homework.cs" />
     <Compile Include="Entity\Lecturer.cs" />
     <Compile Include="Entity\Lecture.cs" />
