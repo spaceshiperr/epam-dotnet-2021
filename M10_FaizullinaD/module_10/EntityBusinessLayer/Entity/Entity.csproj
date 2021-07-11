@@ -46,7 +46,7 @@
     <Compile Include="Entity\Lecturer.cs" />
     <Compile Include="Entity\Lecture.cs" />
     <Compile Include="Entity\Student.cs" />
-    <Compile Include="Interface\IStudentService.cs" />
+    <Compile Include="Interface\IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,12 +2,13 @@
 {
     public class Homework
     {
-        private int grade;
+        private int? grade;
         
         public Homework(int id,
                         int lectureId,
                         int studentId,
                         int grade)
+        
         {
             Id = id;
             LectureId = lectureId;
@@ -21,7 +22,7 @@
 
         public int StudentId { get; set; }
 
-        public int Grade 
+        public int? Grade 
         {
             get { return grade; }
             set

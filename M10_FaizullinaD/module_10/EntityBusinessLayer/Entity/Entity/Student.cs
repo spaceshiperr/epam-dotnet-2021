@@ -32,7 +32,8 @@ namespace Entity.Entity
             {
                 var regexString1 = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|";
                 var regexString2 = @"(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
-                var regex = new Regex(regexString1 + regexString2,RegexOptions.CultureInvariant | RegexOptions.Singleline);
+                var regex = new Regex(regexString1 + 
+                                      regexString2,RegexOptions.CultureInvariant | RegexOptions.Singleline);
                 if (regex.IsMatch(value))
                     email = value;
                 else
